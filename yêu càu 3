@@ -1,0 +1,21 @@
+ 1. Áp dụng các tính chất OOP
+Mỗi tính chất nên được minh họa bằng lớp hoặc chức năng cụ thể trong dự án:
+Tính trừu tượng: Lớp ChessPiece là lớp trừu tượng biểu diễn quân cờ chung.
+Đóng gói: Các thuộc tính như vị trí, loại quân được private, chỉ truy cập qua getter/setter.
+Kế thừa: Pawn, Rook, Knight kế thừa từ ChessPiece.
+Đa hình: Hàm move() được ghi đè trong từng lớp quân cờ để di chuyển theo cách khác nhau.
+ 2. Nạp chồng và ghi đè
+Nạp chồng (Overloading): Có thể dùng cho constructor hoặc phương thức như setTime(int minutes), setTime(int minutes, int seconds).
+Ghi đè (Overriding): Ví dụ move() trong Knight ghi đè từ lớp cha ChessPiece.
+ 3. Getter và Setter
+Trình bày cách viết đúng chuẩn: getX(), setX(int x)
+Ví dụ dùng trong Player, Board, hoặc ChessPiece.
+ 4. Xử lý logic
+Trình bày quy trình xử lý lượt đi, kiểm tra hợp lệ, cập nhật bàn cờ.
+Có thể vẽ sơ đồ dòng (flowchart) để minh họa quá trình xử lý.
+ 5. Lưu trữ
+Bạn chọn không lưu, lưu file, hoặc lưu database?
+Nếu có: Trình bày ưu/nhược điểm:
+Lưu file: đơn giản, dễ triển khai nhưng không truy vấn nhanh.
+Database: mạnh mẽ, dễ mở rộng nhưng phức tạp hơn.
+Không lưu: phù hợp nếu chỉ là game chơi tạm.
