@@ -1,0 +1,29 @@
+https://drive.google.com/file/d/1oN21VvemWHGbj8Jd5lFOE8nFo5KhIQsM/view?usp=sharing
+https://drive.google.com/file/d/1Luv6AiRf--Z4f0n6j01M6s67BfrUAP0P/view?usp=sharing
+Các lớp chính
+ChessGame
+Thuộc tính:
+screen, clock, running
+pieces_images, board, selected_square, player_clicks
+current_player, white_time, black_time, last_time_update, font
+Phương thức:
+__init__(), load_images(), init_board()
+ask_time_input(), update_timer(), draw_board()
+draw_pieces(), draw_timers(), end_game(message)
+is_valid_move(sr, sc, er, ec, piece)
+is_valid_pawn_move(...), is_valid_bishop_move(...), ...
+handle_click(row, col)
+run()
+2. Các sơ đồ UML khác (tùy chọn)
+Sơ đồ Use Case (gợi ý - biểu diễn tương tác người dùng)
+Diễn tả các hành động người chơi có thể thực hiện:
+Bắt đầu trò chơi
+Nhập thời gian mỗi bên
+Chọn và di chuyển quân cờ
+Xem đồng hồ thời gian
+Kết thúc game khi hết thời gian
+Sơ đồ tuần tự (Sequence Diagram) (ví dụ khi di chuyển quân cờ):
+Người dùng nhấn vào ô ⇒ game ghi nhận tọa độ ⇒ nếu hợp lệ ⇒ di chuyển quân cờ ⇒ cập nhật thời gian ⇒ đổi lượt
+3. Vai trò các lớp và mối quan hệ
+ChessGame là lớp trung tâm, điều khiển toàn bộ luồng xử lý.
+Trong chương trình hiện tại, bạn chưa tách riêng các lớp như Piece, Board, Player — nếu mở rộng, bạn có thể thêm các lớp này để tổ chức rõ ràng hơn.
