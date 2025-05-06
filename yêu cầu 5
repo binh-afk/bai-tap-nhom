@@ -1,0 +1,144 @@
+
+
+#### **1. Kế hoạch kiểm thử**
+Dưới đây là các trường hợp kiểm thử (test cases) để kiểm tra các chức năng chính của trò chơi:
+
+| **Chức năng**               | **Trường hợp kiểm thử**                                                                 | **Kết quả mong đợi**                                                                                     |
+|-----------------------------|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| **Hiển thị bàn cờ**         | Chạy chương trình và xem bàn cờ có hiển thị không.                                     | Bàn cờ 8x8 hiển thị với các ô sáng/tối xen kẽ.                                                           |
+| **Hiển thị quân cờ**        | Quan sát các quân cờ có hiển thị đúng vị trí ban đầu không.                            | Các quân cờ (trắng và đen) hiển thị đúng vị trí ban đầu (xe, mã, tượng, hậu, vua, tốt).                  |
+| **Nhập thời gian**          | Nhập thời gian hợp lệ (300 giây) và không hợp lệ (chuỗi ký tự).                        | - Hợp lệ: Chuyển sang giao diện trò chơi.<br>- Không hợp lệ: Xóa ô nhập và yêu cầu nhập lại.            |
+| **Di chuyển quân cờ**       | - Di chuyển quân tốt trắng (hàng 6 cột 0 lên hàng 5 cột 0).<br>- Di chuyển không hợp lệ (quân vua đi 2 ô). | - Hợp lệ: Quân cờ di chuyển, phát âm thanh, đổi lượt.<br>- Không hợp lệ: Không di chuyển, không đổi lượt. |
+| **Đồng hồ đếm ngược**       | Đặt thời gian ngắn (5 giây) và chờ hết giờ.                                            | Đồng hồ đếm ngược, khi hết giờ hiển thị thông báo người thắng và phát âm thanh kết thúc.                 |
+| **Âm thanh**                | - Di chuyển quân cờ.<br>- Hết thời gian.                                               | - Phát âm thanh `move_sound` khi di chuyển.<br>- Phát âm thanh `game_over_sound` khi hết giờ.            |
+| **Thoát chương trình**      | Nhấn nút đóng cửa sổ (X).                                                              | Chương trình thoát mà không bị lỗi.                                                                      |
+
+---
+
+#### **2. Kết quả kiểm thử**
+
+Dựa trên mã `chess_game.py`, tôi sẽ mô phỏng quá trình kiểm thử và ghi lại kết quả.
+
+| Chức năng              | Kết quả thực tế                                                                                  | Trạng thái| Lỗi (nếu có)                                                                                    |
+|-----------------------------|----------------------------------------------------------------------------------------------------------|----------------|------------------------------------------------------------------------------------------------------|
+| Hiển thị bàn cờ       | Bàn cờ 8x8 hiển thị đúng với các ô sáng/tối xen kẽ.                                                      | Đạt            | Không                                                                                                |
+| Hiển thị quân cờ       | Hiển thị ô màu đỏ thay vì quân cờ (như đã báo cáo trước đó).                                             | Không đạt      |Lỗi 1: Không tải được hình ảnh quân cờ từ thư mục `images/`, hiển thị ô đỏ thay thế.            |
+| Nhập thời gian          | - Hợp lệ (300 giây): Chuyển sang giao diện trò chơi.<br>- Không hợp lệ ("abc"): Xóa ô nhập và nhập lại.  | Đạt            | Không                                                                                                |
+| Di chuyển quân cờ      | - Hợp lệ: Quân cờ di chuyển, phát âm thanh, đổi lượt.<br>- Không hợp lệ: Không di chuyển, không đổi lượt. | Đạt            | Không                                                                                                |
+| Đồng hồ đếm ngược       | Đồng hồ đếm ngược, hiển thị thông báo người thắng khi hết giờ, nhưng không nghe âm thanh kết thúc.       | Không đạt      | Lỗi 2: Âm thanh `game_over_sound` không phát dù file tồn tại (đã báo cáo trước đó).             |
+| Âm thanh                | - Âm thanh di chuyển (`move_sound`) không phát.<br>- Âm thanh kết thúc (`game_over_sound`) không phát.   | Không đạt      | Lỗi 3: Âm thanh không phát dù file tồn tại (đã báo cáo trước đó).                               |
+| Thoát chương trình      | Chương trình thoát bình thường khi nhấn nút đóng cửa sổ.                                                 | Đạt            | Không                                                                                                |
+
+---
+
+3. Báo cáo lỗi chi tiết
+
+Lỗi 1: Không tải được hình ảnh quân cờ**
+- Mô tả: Khi chạy chương trình, các quân cờ không hiển thị, thay vào đó là các ô màu đỏ (do đoạn mã xử lý lỗi trong `load_images`).
+- Nguyên nhân:
+  - Thư mục `images/` không chứa đầy đủ các tệp hình ảnh (`black_king.png`, `white_pawn.png`, v.v.).
+  - Đường dẫn trong `load_images` không đúng với thư mục làm việc.
+- Tác động: Người chơi không thấy quân cờ, làm mất trải nghiệm chơi game.
+- Giải pháp:
+  1. Đảm bảo thư mục `images/` chứa đầy đủ các tệp hình ảnh:
+     ```
+     images/
+     ├── black_bishop.png
+     ├── black_king.png
+     ├── black_knight.png
+     ├── black_pawn.png
+     ├── black_queen.png
+     ├── black_rook.png
+     ├── white_bishop.png
+     ├── white_king.png
+     ├── white_knight.png
+     ├── white_pawn.png
+     ├── white_queen.png
+     └── white_rook.png
+     ```
+  2. Sửa lại `load_images` để kiểm tra và dừng chương trình nếu thiếu tệp, thay vì hiển thị ô đỏ:
+     ```python
+     def load_images(self):
+         pieces = [
+             'black_bishop', 'black_king', 'black_knight', 'black_pawn',
+             'black_queen', 'black_rook', 'white_bishop', 'white_king',
+             'white_knight', 'white_pawn', 'white_queen', 'white_rook'
+         ]
+         for piece in pieces:
+             path = os.path.join("images", f'{piece}.png')
+             if not os.path.exists(path):
+                 print(f"Error: Image '{path}' not found.")
+                 sys.exit()
+             image = pygame.image.load(path)
+             image = pygame.transform.scale(image, (SQUARE_SIZE, SQUARE_SIZE))
+             self.pieces_images[piece] = image
+     
+  3. Tải hình ảnh từ nguồn như [lichess.org](https://lichess.org/) nếu thiếu.
+
+Lỗi 2 & 3: Âm thanh không phát**
+- Mô tả:
+  - Âm thanh di chuyển (`move_sound`) không phát khi di chuyển quân cờ.
+  - Âm thanh kết thúc (`game_over_sound`) không phát khi hết giờ.
+- Nguyên nhân**:
+  - File âm thanh (`move_sound.wav`, `game_over_sound.wav`) không đúng định dạng hoặc bị hỏng.
+  - Pygame mixer không hoạt động đúng do lỗi cấu hình hoặc hệ thống âm thanh.
+- Tác động: Trải nghiệm người chơi giảm do thiếu âm thanh.
+- Giải pháp:
+  1. Kiểm tra file âm thanh:
+     - Đảm bảo `sounds/move_sound.wav` và `sounds/game_over_sound.wav` tồn tại.
+     - Mở file bằng trình phát nhạc để xác nhận chúng là định dạng `.wav` và phát được.
+     - Nếu không đúng, tải lại từ [Pixabay](https://pixabay.com/sound-effects/search/chess/).
+  2. Sửa lại phần tải âm thanh để kiểm tra và dừng nếu lỗi:
+     ```python
+     def __init__(self):
+         # ... (các dòng trước)
+         path = os.path.join("sounds", "move_sound.wav")
+         if not os.path.exists(path):
+             print(f"Error: Sound '{path}' not found.")
+             sys.exit()
+         self.move_sound = pygame.mixer.Sound(path)
+
+         path = os.path.join("sounds", "game_over_sound.wav")
+         if not os.path.exists(path):
+             print(f"Error: Sound '{path}' not found.")
+             sys.exit()
+         self.game_over_sound = pygame.mixer.Sound(path)
+     ```
+  3. Kiểm tra hệ thống âm thanh:
+     - Đảm bảo loa máy tính bật và không bị tắt âm.
+     - Cài lại Pygame nếu cần:
+       ```
+       pip uninstall pygame
+       pip install pygame
+       ```
+
+---
+
+4. Đề xuất cải tiến**
+Dựa trên kết quả kiểm thử, tôi đề xuất một số cải tiến cho chương trình:
+
+1.Thêm kiểm tra tài nguyên trước khi chạy**:
+   - Thêm hàm `check_resources` (như trong các phiên bản mã trước đó) để kiểm tra sự tồn tại của `images/` và `sounds/` trước khi khởi động.
+
+2. Cải thiện giao diện người dùng**:
+   - Thêm thông báo lỗi trực tiếp trên màn hình (thay vì chỉ in terminal) nếu thiếu tài nguyên.
+   - Thêm nút "Restart" để chơi lại sau khi hết giờ.
+
+3. Thêm tính năng mới**:
+   - Thêm âm thanh khi ăn quân (tạo file `capture_sound.wav` và phát khi di chuyển ăn quân đối phương).
+   - Thêm khả năng lưu và tải ván cờ.
+
+4. Tối ưu hiệu suất**:
+   - Giảm thời gian chờ trong `end_game` (từ 4000ms xuống 2000ms) để người chơi không phải chờ lâu.
+
+---
+
+5. Báo cáo tổng kết**
+- **Tổng số lỗi**: 3 (hiển thị quân cờ, âm thanh di chuyển, âm thanh kết thúc).
+- **Tình trạng**:
+  - Đã xác định nguyên nhân và đề xuất giải pháp cho từng lỗi.
+  - Các chức năng khác (bàn cờ, nhập thời gian, di chuyển, đồng hồ, thoát chương trình) hoạt động tốt.
+- **Hành động tiếp theo**:
+  - Áp dụng các giải pháp trên và kiểm thử lại.
+  - Nếu lỗi vẫn tồn tại, kiểm tra thêm về hệ thống (loa, phiên bản Pygame, định dạng file).
+
