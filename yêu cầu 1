@@ -1,26 +1,16 @@
 1. Bài toán cần giải quyết, đối tượng người dùng:
 Phát triển phần mềm chơi cờ vua 2 người, hỗ trợ chọn thời gian, hướng dẫn cách chơi.
-
 Đối tượng người dùng: người yêu thích cờ vua, muốn chơi cùng bạn bè trên máy tính.
-
 2. Tính cần thiết và mục tiêu:
 Tạo môi trường giải trí lành mạnh, rèn luyện tư duy logic.
-
 Giúp người chơi luyện tập, thi đấu nhanh chóng mà không cần bàn cờ thật.
-
 3. Các tính năng chính:
 Nhập thời gian chơi (theo giây).
-
 Bắt đầu ván cờ.
-
 Kiểm tra hợp lệ nước đi.
-
 Hiển thị gợi ý cách đi hợp lệ (cho người mới chơi).
-
 Kết thúc ván cờ khi chiếu hết.
-
 Giao diện trực quan.
-
 4. (Tuỳ chọn) Biểu đồ Use Case:
 https://drive.google.com/file/d/1nDv1XIVFLadohtOq1ek8espyXSncPLv8/view
 
